@@ -1,0 +1,42 @@
+﻿@using jevtest.Models
+@model List<Users>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <title>Adminpage</title>
+
+</head>
+<body>
+    <p>UYELER</p>
+    <table class="table table-bordered">
+        <tr>
+            <th>Name</th>
+            <th>Surename</th>
+            <th>companey</th>
+            <th>username</th>
+            <th>password</th>
+            <th>Guncelle</th>
+
+        </tr>
+        @foreach (var i in Model)
+        {
+    <tr>
+        <th>@i.Name</th>
+        <th>@i.SureName</th>
+        <th>@i.companey</th>
+        <th>@i.username</th>
+        <th>@i.password</th>
+        <th><a href="/home/verigetir/@i.UserId" class="btn btn-danger">Guncelle</a></th>
+    </tr>
+        }
+    </table>
+  
+</body>
+</html>

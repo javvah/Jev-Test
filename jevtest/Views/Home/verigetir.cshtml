@@ -1,0 +1,44 @@
+﻿@model jevtest.Models.Users
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>verigetir</title>
+    <link href="~/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+</head>
+
+<body>
+    <p>UYELER</p>
+    @using (Html.BeginForm("dbguncelle", "home", FormMethod.Post))
+    {
+    <table class="table table-bordered">
+        <tr>
+            <th>Name</th>
+            <th>Surename</th>
+            <th>companey</th>
+            <th>username</th>
+            <th>password</th>
+            <th>userid</th>
+
+        </tr>
+
+
+        <tr>
+            <th>@Html.TextBoxFor(x => x.Name)</th>
+            <th>@Html.TextBoxFor(x => x.SureName)</th>
+            <th>@Html.TextBoxFor(x => x.companey)</th>
+            <th>@Html.TextBoxFor(x => x.username)</th>
+            <th>@Html.TextBoxFor(x => x.password)</th>
+            <th>@Html.TextBoxFor(x => x.UserId, new {@readonly="true" })</th>  //bunu koymayica userid sifir gidiyor _readonly olmasi lazim
+        </tr>
+
+    </table>
+    <button class="btn btn-default" style="background-color:#808080"#">Guncelle</button>
+    }
+</body>
+</html>

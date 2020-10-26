@@ -1,0 +1,16 @@
+﻿@Model list<jevtest.Models.kitab>
+@{
+    ViewData["Title"] = "Index2";
+}
+
+<h2>Index2</h2>
+
+@foreach(var i in Model)
+{
+           <tr>
+               <td>@i.ID</td>
+               <td>@i.kitabad</td>
+               <td>@i.yazar</td>
+           </tr>
+
+}
