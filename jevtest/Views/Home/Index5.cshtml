@@ -1,4 +1,4 @@
-﻿@model jevtest.Models.Users;
+﻿@model jevtest.Models.Users
 @{
     Layout = null;
 }
@@ -15,9 +15,9 @@
 
         <h1>Register</h1>
         <p>Please fill in this form to create an account.</p>
-      
+
         <p>NAME</p>
-        @Html.TextBoxFor(x => x.Name, new {@class="form-control"})
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
         <p>SURENAME</p>
         @Html.TextBoxFor(x => x.SureName)
         <p>company</p>
@@ -26,6 +26,8 @@
         @Html.TextBoxFor(x => x.username)
         <p>Password</p>
         @Html.PasswordFor(x => x.password)
+        <p>UserRoll</p>
+        @Html.DropDownListFor(x=>x.Roll.id,(List<SelectListItem>)ViewBag.ListOfRolls,new {@class="form-control" }) 
         <p></p>
         <button type="submit" class="registerbtn">Register</button>
 

@@ -15,5 +15,6 @@ namespace jevtest.Models
         }
 
         public DbSet<Users> MyUsers { get; set; }
+        public DbSet<UserRolls> UserRolls { get; set; }
     }
 }

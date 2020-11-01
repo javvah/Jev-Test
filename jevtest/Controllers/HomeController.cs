@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using jevtest.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace jevtest.Controllers
 {
@@ -40,12 +43,21 @@ namespace jevtest.Controllers
         [HttpGet]
         public IActionResult Index5()
         {
+            List<SelectListItem> droplsit= (from x in DBveri.UserRolls.ToList() 
+                                            select new SelectListItem {
+                                            Text=x.Roll,
+                                            Value=x.id.ToString()
+
+                                            } ).ToList();
+            ViewBag.ListOfRolls = droplsit;
             return View();
         }
 
         [HttpPost]
         public IActionResult Index5(Users yeniuye)
         {
+            var yeniuyerolu = DBveri.UserRolls.Where(x =>x.id== yeniuye.Roll.id).FirstOrDefault();
+             yeniuye.Roll = yeniuyerolu;
             DBveri.MyUsers.Add(yeniuye);
             DBveri.SaveChanges();
             return RedirectToAction("Index");
@@ -56,30 +68,60 @@ namespace jevtest.Controllers
             var silinecek = DBveri.MyUsers.Find(id);
             DBveri.MyUsers.Remove(silinecek);
             DBveri.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Adminpage");
         }
 
         public IActionResult Adminpage()
         {
-            var uyelist = DBveri.MyUsers.ToList();
+            List<SelectListItem> droplsit = (from x in DBveri.UserRolls.ToList()
+                                             select new SelectListItem
+                                             {
+                                                 Text = x.Roll,
+                                                 Value = x.id.ToString()
+
+                                             }).ToList();
+            ViewBag.ListOfRolls = droplsit;
+            Users A = new Users();
+            ViewBag.obj = A;
+            // var uyelist = DBveri.MyUsers.ToList(); ilişki olazsa
+            var uyelist = DBveri.MyUsers.Include(x=>x.Roll).ToList();
             return View(uyelist);
         }
         public IActionResult verigetir(int id)
         {
+            List<SelectListItem> droplsit = (from x in DBveri.UserRolls.ToList()
+                                             select new SelectListItem
+                                             {
+                                                 Text = x.Roll,
+                                                 Value = x.id.ToString()
+
+                                             }).ToList();
+            ViewBag.ListOfRolls = droplsit;
             var uye = DBveri.MyUsers.Find(id);
             return View(uye);
         }
 
+      
         public IActionResult dbguncelle(Users uye)
         {
             var eskiveri = DBveri.MyUsers.Find(uye.UserId);
+            var yeniuyerolu = DBveri.UserRolls.Where(x => x.id == uye.Roll.id).FirstOrDefault();
+            eskiveri.Roll = yeniuyerolu;
             eskiveri.Name = uye.Name;
             eskiveri.SureName = uye.SureName;
             eskiveri.companey = uye.companey;
             eskiveri.username = uye.username;
             eskiveri.password = uye.password;
+            eskiveri.Rollid = yeniuyerolu.id;
             DBveri.SaveChanges();
             return RedirectToAction("Adminpage");
+        }
+        public IActionResult Rollist(int id)
+        {
+            var uyeler = DBveri.MyUsers.Where(x => x.Rollid == id).ToList();
+            var rolname = DBveri.UserRolls.Where(x => x.id == id).Select(y => y.Roll).FirstOrDefault();
+            ViewBag.pageheader = rolname;
+            return View(uyeler);
         }
     }
 }

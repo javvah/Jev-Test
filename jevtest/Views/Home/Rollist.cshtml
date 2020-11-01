@@ -1,6 +1,6 @@
 ﻿@using jevtest.Models
 @model List<Users>
-@{
+@{ 
     Layout = null;
 }
 
@@ -10,22 +10,18 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <link href="~/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <title>Adminpage</title>
-
+    <title>Rollist</title>
 </head>
 <body>
-    <p>UYELER</p>
+    <h1>list users by rolls</h1>
+    <p>@ViewBag.pageheader</p>
     <table class="table table-bordered">
         <tr>
             <th>Name</th>
             <th>Surename</th>
             <th>companey</th>
             <th>username</th>
-            <th>password</th>
-            <th>userroll</th>
-            <th>Guncelle</th>
-            <th>Sil</th>
-
+            <th>password</th>         
         </tr>
         @foreach (var i in Model)
         {
@@ -34,19 +30,9 @@
                 <th>@i.SureName</th>
                 <th>@i.companey</th>
                 <th>@i.username</th>
-                <th>@i.password</th>
-                <th>@i.Roll.Roll</th>
-                <th><a href="/home/verigetir/@i.UserId" class="btn btn-info">Guncelle</a></th>
-                <th><a href="/home/uyesil/@i.UserId" class="btn btn-danger">Sil</a></th>
+                <th>@i.password</th>             
             </tr>
         }
     </table>
-
-    <p></p>
-    @{var a = 1;}
-    @* @Html.DropDownListFor(a=>a.id, (List<SelectListItem>)ViewBag.ListOfRolls, new { @class = "form-control" })*@
-    <a href="/home/rollist/@a   " class="btn btn-danger">list for Roll Relation</a>
-    <p></p>
-
 </body>
 </html>

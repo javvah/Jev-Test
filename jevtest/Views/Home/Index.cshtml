@@ -9,16 +9,25 @@
 
 <div>selam ben yeni index</div>
 <div>@DateTime.Now.ToString()</div>
-<div>@{
-    var liste = new List<string>() { "adana", "izmir", "denizli", "antaliya" };
-    <table class="table table-bordered">
-        @foreach (var i in liste)
-        {
-            <tr>
-              <td>@i</td> 
+<div>
+    @{
+        var liste = new List<string>() { "adana", "izmir", "denizli", "antaliya" };
+        <table class="table table-bordered">
+            @foreach (var i in liste)
+            {
+                <tr>
+                    <td>@i</td>
 
-            </tr>
-            
-        }
-    </table>
-}</div>
+                </tr>
+
+            }
+
+        </table>
+        <a>        &nbsp;        </a>
+        <p></p>
+        <a href="/home/Adminpage" class="btn btn-danger">Login</a>
+        <t>        &nbsp;   &nbsp;     </t>
+        <a href="/home/index5" class="btn btn-danger">Register</a>
+        <p></p>
+    }
+</div>

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace jevtest.Models
 {
-   
+
     public class Users
     {
         [Key]
@@ -18,10 +18,13 @@ namespace jevtest.Models
         public string Name { get; set; }
         public string SureName { get; set; }
         public string companey { get; set; }
-        
+
         public string username { get; set; }
         [PasswordPropertyText]
         public string password { get; set; }
+
+        public int Rollid { get; set; }
+        public UserRolls Roll { get; set; }
 
     }
 }
