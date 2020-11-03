@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using jevtest.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -43,12 +44,12 @@ namespace jevtest.Controllers
         [HttpGet]
         public IActionResult Index5()
         {
-            List<SelectListItem> droplsit= (from x in DBveri.UserRolls.ToList() 
-                                            select new SelectListItem {
-                                            Text=x.Roll,
-                                            Value=x.id.ToString()
+            List<SelectListItem> droplsit = (from x in DBveri.UserRolls.ToList()
+                                             select new SelectListItem {
+                                                 Text = x.Roll,
+                                                 Value = x.id.ToString()
 
-                                            } ).ToList();
+                                             }).ToList();
             ViewBag.ListOfRolls = droplsit;
             return View();
         }
@@ -56,13 +57,14 @@ namespace jevtest.Controllers
         [HttpPost]
         public IActionResult Index5(Users yeniuye)
         {
-            var yeniuyerolu = DBveri.UserRolls.Where(x =>x.id== yeniuye.Roll.id).FirstOrDefault();
-             yeniuye.Roll = yeniuyerolu;
+            var yeniuyerolu = DBveri.UserRolls.Where(x => x.id == yeniuye.Roll.id).FirstOrDefault();
+            yeniuye.Roll = yeniuyerolu;
             DBveri.MyUsers.Add(yeniuye);
             DBveri.SaveChanges();
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public IActionResult uyesil(int id)
         {
             var silinecek = DBveri.MyUsers.Find(id);
@@ -71,6 +73,7 @@ namespace jevtest.Controllers
             return RedirectToAction("Adminpage");
         }
 
+        [Authorize]
         public IActionResult Adminpage()
         {
             List<SelectListItem> droplsit = (from x in DBveri.UserRolls.ToList()
@@ -87,6 +90,7 @@ namespace jevtest.Controllers
             var uyelist = DBveri.MyUsers.Include(x=>x.Roll).ToList();
             return View(uyelist);
         }
+        [Authorize]
         public IActionResult verigetir(int id)
         {
             List<SelectListItem> droplsit = (from x in DBveri.UserRolls.ToList()
@@ -101,7 +105,7 @@ namespace jevtest.Controllers
             return View(uye);
         }
 
-      
+        [Authorize]
         public IActionResult dbguncelle(Users uye)
         {
             var eskiveri = DBveri.MyUsers.Find(uye.UserId);
@@ -116,6 +120,7 @@ namespace jevtest.Controllers
             DBveri.SaveChanges();
             return RedirectToAction("Adminpage");
         }
+        [Authorize]
         public IActionResult Rollist(int id)
         {
             var uyeler = DBveri.MyUsers.Where(x => x.Rollid == id).ToList();
@@ -123,5 +128,7 @@ namespace jevtest.Controllers
             ViewBag.pageheader = rolname;
             return View(uyeler);
         }
+
+      
     }
 }
